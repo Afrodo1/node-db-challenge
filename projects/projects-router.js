@@ -49,4 +49,25 @@ router.get('/:id/tasks', (req,res) =>{
         });
 });
 
+router.post('/', (req,res)=>{
+    const data = req.body;
+
+    projects.addProject(data)
+        .then((project) => res.status(200).json(project))
+        .catch((err)=> res.status(500).json({message:'failed to add project', err}));
+});
+
+
+router.post('/tasks/', (req,res)=>{
+
+    projects.addTask()
+        .then(project =>{
+            console.log(project);
+            res.status(200).json(project)
+        })
+        .catch(err =>{
+            res.status(500).json({message:"couldn't add task", err});
+        });
+});
+
 module.exports = router;
